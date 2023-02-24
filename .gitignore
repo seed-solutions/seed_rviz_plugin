@@ -1,0 +1,13 @@
+*~
+*.pyc
+#*
+
+# Eclipse
+.project
+.classpath
+.settings
+.cproject
+.metadata
+
+#vscode
+.vscode

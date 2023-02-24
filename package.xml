@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package format="1">
+  <name>seed_rviz_plugin</name>
+  <version>0.0.1</version>
+  <description>The seed_rviz_plugin package</description>
+  <maintainer email="y.shiigi@thk.co.jp">Yasuto Shiigi</maintainer>
+  <license>BSD</license>
+
+  <author>Yasuto Shiigi</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>qtbase5-dev</build_depend>
+  <build_depend>rviz</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>interactive_markers</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>message_generation</build_depend> 
+  <build_depend>task_programmer</build_depend> 
+
+  <run_depend>libqt5-core</run_depend>
+  <run_depend>libqt5-gui</run_depend>
+  <run_depend>libqt5-widgets</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>interactive_markers</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+  <export>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+
+</package>

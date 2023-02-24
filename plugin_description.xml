@@ -1,0 +1,9 @@
+<library path="lib/libseed_rviz_plugin">
+  <class name="seed_rviz_plugin/PointList"
+         type="seed_rviz_plugin::PointListPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget to edit waypoints for task_programmer
+    </description>
+  </class>
+</library>
