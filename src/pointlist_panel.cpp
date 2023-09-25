@@ -343,6 +343,15 @@ void PointListPanel::updateCheckState(int _index)
     y_spin->setEnabled(true);
     th_spin->setEnabled(true);
   }
+  else if(!view_state && edit_state){
+    edit_check_box->setChecked(false);
+    edit_check_box->setEnabled(false);
+    name_line->setEnabled(false);
+    x_spin->setEnabled(false);
+    y_spin->setEnabled(false);
+    th_spin->setEnabled(false);
+    callService("delete",std::to_string(_index),name_line->text().toStdString());
+  }
   else{
     view_check_box->setChecked(false);
     edit_check_box->setEnabled(false);
@@ -353,37 +362,43 @@ void PointListPanel::updateCheckState(int _index)
       x_spin->value(),y_spin->value(),th_spin->value());
 
   // change background color, if value is changed
-  if(_index  > wp_list_original_.size() - 1){
-    name_line->setStyleSheet("QLineEdit{background-color: magenta;}");
-    x_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-    y_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-    th_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-    return ;
-  }
-  if(name_line->text().toStdString() != wp_list_original_.at(_index).name.c_str() ){
-    name_line->setStyleSheet("QLineEdit{background-color: magenta;}");
+  if(wp_list_original_.size() == 0){
+    return;
   }
   else{
-    name_line->setStyleSheet("QLineEdit{}");
+    if(_index  > wp_list_original_.size() - 1){
+      name_line->setStyleSheet("QLineEdit{background-color: magenta;}");
+      x_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+      y_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+      th_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+      return ;
+    }
+    if(name_line->text().toStdString() != wp_list_original_.at(_index).name.c_str() ){
+      name_line->setStyleSheet("QLineEdit{background-color: magenta;}");
+    }
+    else{
+      name_line->setStyleSheet("QLineEdit{}");
+    }
+    if(std::round(x_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.x*100) ){
+      x_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+    }
+    else{
+      x_spin->setStyleSheet("QDoubleSpinBox{}");
+    }
+    if(std::round(y_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.y*100) ){
+      y_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+    }
+    else{
+      y_spin->setStyleSheet("QDoubleSpinBox{}");
+    }
+    if(std::round(th_spin->value()*100) != std::round(wp_list_original_.at(_index).theta*100) ){
+      th_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+    }
+    else{
+      th_spin->setStyleSheet("QDoubleSpinBox{}");
+    }
   }
-  if(std::round(x_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.x*100) ){
-    x_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-  }
-  else{
-    x_spin->setStyleSheet("QDoubleSpinBox{}");
-  }
-  if(std::round(y_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.y*100) ){
-    y_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-  }
-  else{
-    y_spin->setStyleSheet("QDoubleSpinBox{}");
-  }
-  if(std::round(th_spin->value()*100) != std::round(wp_list_original_.at(_index).theta*100) ){
-    th_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-  }
-  else{
-    th_spin->setStyleSheet("QDoubleSpinBox{}");
-  }
+
 }
 
 void PointListPanel::updateValue(int _index)
@@ -399,26 +414,31 @@ void PointListPanel::updateValue(int _index)
       x_spin->value(),y_spin->value(),th_spin->value());
 
   // change background color, if value is changed
-  if(_index > wp_list_original_.size() - 1){
+  if(wp_list_original_.size() == 0){
     return;
   }
-  if(std::round(x_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.x*100) ){
-    x_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-  }
   else{
-    x_spin->setStyleSheet("QDoubleSpinBox{}");
-  }
-  if(std::round(y_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.y*100) ){
-    y_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-  }
-  else{
-    y_spin->setStyleSheet("QDoubleSpinBox{}");
-  }
-  if(std::round(th_spin->value()*100) != std::round(wp_list_original_.at(_index).theta*100) ){
-    th_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
-  }
-  else{
-    th_spin->setStyleSheet("QDoubleSpinBox{}");
+    if(_index > wp_list_original_.size() - 1){
+      return;
+    }
+    if(std::round(x_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.x*100) ){
+      x_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+    }
+    else{
+      x_spin->setStyleSheet("QDoubleSpinBox{}");
+    }
+    if(std::round(y_spin->value()*100) != std::round(wp_list_original_.at(_index).pose.position.y*100) ){
+      y_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+    }
+    else{
+      y_spin->setStyleSheet("QDoubleSpinBox{}");
+    }
+    if(std::round(th_spin->value()*100) != std::round(wp_list_original_.at(_index).theta*100) ){
+      th_spin->setStyleSheet("QDoubleSpinBox{background-color: magenta;}");
+    }
+    else{
+      th_spin->setStyleSheet("QDoubleSpinBox{}");
+    }
   }
 
 }
